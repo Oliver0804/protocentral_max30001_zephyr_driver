@@ -5,6 +5,10 @@ This is the Zephyr driver for the MAX30001 single-lead ECG / BioZ monitoring IC 
 MAX30001 is a single-lead ECG monitoring IC which has built-in R-R detection and several other features that make it perfect for a wearable single-lead ECG application.
 
 ## Usage
+在/nordic/ncs/v2.6.1/zephyr/modules路徑下 clone 
+```
+git clone git@github.com:Oliver0804/protocentral_max30001_zephyr_driver.git
+```
 
 To use this driver in your Zephyr project, you need to add the following to your 'west.yml' file, under the 'projects' section:
 
@@ -39,8 +43,9 @@ manifest:
 You also need to add the following to your 'prj.conf' file:
 
 ```c
+CONFIG_SPI=y
 CONFIG_SENSOR=y
-CONFIG_MAX30001=y
+CONFIG_SENSOR_MAX30001=y
 ```
 
 In the devicetree (DTS) file or DTS overlay, you need to add the following under the appropriate SPI node:
@@ -68,6 +73,11 @@ In the devicetree (DTS) file or DTS overlay, you need to add the following under
 		ecg-invert;
 	};
 };
+```
+
+在項目中的CMakeLists.txt添加
+```
+include_directories(${ZEPHYR_BASE}/modules/protocentral_max30001_zephyr_driver/sensor/max30001)
 ```
 
 That's it - you can now use the MAX30001 driver in your Zephyr project.
